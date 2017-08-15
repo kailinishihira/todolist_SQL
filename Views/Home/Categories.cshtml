@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="jumbotron">
+  <h1>All my Categories</h1>
+</div>
+
+<div class="container">
+
+  <ul>
+    @foreach(var category in Model)
+    {
+      <a href="/CategoryDetails/@category.GetId()"><li>@category.GetName()</li></a>
+    }
+  </ul>
+
+  <a href="/"><button type="button" class="btn btn-success" name="button">Go Home</button></a>
+</div>

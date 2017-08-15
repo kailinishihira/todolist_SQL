@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+<div class="jumbotron">
+  <h1>Create a new Category!</h1>
+</div>
+
+<div class="container">
+
+
+  <form action="/Categories" method="post" class="form-group">
+    <label for="category">Enter a category</label>
+    <input type="text" class="form-control" name="category">
+
+    <button type="submit" name="button">Add this category!</button>
+  </form>
+
+  <a href="/"><button type="button" class="btn btn-success" name="button">Go home!</button></a>
+
+</div>
