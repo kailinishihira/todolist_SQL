@@ -96,12 +96,18 @@ namespace ToDoList.Models
       return newCategory;
     }
 
-    public static void DeleteAll()
+    public static void DeleteCategory(int id)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM categories;";
+      cmd.CommandText = @"DELETE FROM categories WHERE id = @thisId;";
+
+      MySqlParameter categoryId = new MySqlParameter();
+      categoryId.ParameterName = "@thisId";
+      categoryId.Value = id;
+      cmd.Parameters.Add(categoryId);
+
       cmd.ExecuteNonQuery();
     }
 

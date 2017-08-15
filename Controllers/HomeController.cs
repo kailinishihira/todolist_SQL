@@ -74,5 +74,32 @@ namespace ToDoList.Controllers
       return View(model);
     }
 
+    [HttpGet("/CategoryDetails/{id}/ClearAll")]
+    public ActionResult ClearTasks(int id)
+    {
+      Task.DeleteAll(id);
+
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+
+      Category selectedCategory = Category.Find(id);
+      List<Task> categoryTaskList = selectedCategory.GetTasks();
+
+      model.Add("category", selectedCategory);
+      model.Add("tasks", categoryTaskList);
+
+      return View("CategoryDetails", model);
+    }
+
+    [HttpGet("/CategoryDetails/{id}/ClearCategory")]
+    public ActionResult DeleteCategory(int id)
+    {
+      Category.DeleteCategory(id);
+      List<Category> allCategories = Category.GetAll();
+
+      return View("Categories", allCategories);
+
+      //Delete tasks within this category
+    }
+
   }
 }
