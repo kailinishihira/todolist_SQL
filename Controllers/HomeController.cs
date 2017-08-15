@@ -95,10 +95,8 @@ namespace ToDoList.Controllers
     {
       Category.DeleteCategory(id);
       List<Category> allCategories = Category.GetAll();
-
+      Task.DeleteAll(id);
       return View("Categories", allCategories);
-
-      //Delete tasks within this category
     }
 
   }

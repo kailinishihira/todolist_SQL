@@ -7,18 +7,31 @@
 </div>
 
 <div class="container">
-  <ul>
-    @foreach (var task in Model["tasks"])
+  <div class="well well-list">
+
+    @if(Model["tasks"].Count ==0)
     {
-      <li>@task.GetDescription()</li>
+      <h1>There are no tasks for this category yet!</h1>
     }
-  </ul>
+    else
+    {
 
-  <a href='/CategoryDetails/@Model["category"].GetId()/TaskForm'><button type="button" class="btn btn-success" name="button">Create a new task</button></a>
+        @foreach (var task in Model["tasks"])
+        {
+          <p>@task.GetDescription()</p>
+        }
 
-  <a href='/CategoryDetails/@Model["category"].GetId()/ClearAll'><button type="button" name="button" class="btn btn-success">Delete All Tasks</button>
+    }
+  </div>
 
-  <a href='/CategoryDetails/@Model["category"].GetId()/ClearCategory'><button type="button" name="button" class="btn btn-success">Delete This Category</button>
-
-  <a href="/"><button type="button" class="btn btn-success" name="button">Go Home</button></a>
+  <a href='/CategoryDetails/@Model["category"].GetId()/TaskForm'><button type="button" class="btn btn-success btn-create" name="button">Create a new task</button></a>
+<br>
+<br>
+  <a href='/CategoryDetails/@Model["category"].GetId()/ClearAll'><button type="button" name="button" class="btn btn-danger btn-delete">Delete All Tasks</button>
+<br>
+<br>
+  <a href='/CategoryDetails/@Model["category"].GetId()/ClearCategory'><button type="button" name="button" class="btn btn-danger btn-delete">Delete This Category</button>
+<br>
+<br>
+  <a href="/Categories"><button type="button" class="btn btn-warning btn-home" name="button">Go back</button></a>
 </div>

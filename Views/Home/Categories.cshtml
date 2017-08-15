@@ -7,13 +7,16 @@
 </div>
 
 <div class="container">
+  <div class="row">
 
-  <ul>
+  </div>
+  <div class="list-group">
     @foreach(var category in Model)
     {
-      <a href="/CategoryDetails/@category.GetId()"><li>@category.GetName()</li></a>
-    }
-  </ul>
 
-  <a href="/"><button type="button" class="btn btn-success" name="button">Go Home</button></a>
+      <a href="/CategoryDetails/@category.GetId()" class="btn-create"><button type="button" class="list-group-item">@category.GetName()</button></a>
+    }
+  </div>
+
+  <a href="/"><button type="button" class="btn btn-warning btn-home" name="button">Go Home</button></a>
 </div>
