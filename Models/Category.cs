@@ -8,6 +8,8 @@ namespace ToDoList.Models
   {
     private string _name;
     private int _id;
+    private static string _sortType = "date_ascending";
+
     public Category(string name, int id = 0)
     {
       _name = name;
@@ -36,6 +38,10 @@ namespace ToDoList.Models
     public int GetId()
     {
       return _id;
+    }
+    public static void SetSortType(string sortType)
+    {
+      _sortType = sortType;
     }
     public void Save()
     {
@@ -117,7 +123,20 @@ namespace ToDoList.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText =@"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY due_date ASC;";
+
+      if (_sortType=="date_ascending")
+      {
+          cmd.CommandText =@"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY due_date ASC;";
+      }
+      else if (_sortType == "date_descending")
+      {
+          cmd.CommandText = @"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY due_date DESC;";
+      }
+      else
+      {
+        cmd.CommandText = @"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY description ASC;";
+      }
+
 
       MySqlParameter categoryId = new MySqlParameter();
       categoryId.ParameterName = "@category_Id";

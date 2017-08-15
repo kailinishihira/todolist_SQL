@@ -7,7 +7,10 @@
 </div>
 
 <div class="container">
-
+  <h2>Sort Tasks by:</h2>
+  <a href='/CategoryDetails/@Model["category"].GetId()/DueEarliest'><button type="button" name="button" class="btn btn-default">Due Earliest</button></a>
+  <a href='/CategoryDetails/@Model["category"].GetId()/DueLatest'><button type="button" name="button" class="btn btn-default">Due Latest</button></a>
+  <a href='/CategoryDetails/@Model["category"].GetId()/Alphabetical'><button type="button" name="button" class="btn btn-default">Alphabetical Order</button>
 
     @if(Model["tasks"].Count ==0)
     {
@@ -20,7 +23,9 @@
         {
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Due date: @task.GetDateTime()</h3>
+              <h3 class="panel-title">Due date: @task.GetDateTime()
+              <a href="/CategoryDetails/@Model["category"].GetId()/ClearTask/@task.GetId()">  <button type="button" class="btn btn-danger float-right">X</button></a>
+              </h3>
             </div>
             <div class="panel-body">
               <h2>@task.GetDescription()</h2>

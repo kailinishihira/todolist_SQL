@@ -65,7 +65,6 @@ namespace ToDoList.Controllers
     public ActionResult CategoryDetails(int id)
     {
       Dictionary<string, object> model = new Dictionary<string, object> ();
-
       Category selectedCategory = Category.Find(id);
       List<Task> categoryTaskList = selectedCategory.GetTasks();
 
@@ -73,6 +72,51 @@ namespace ToDoList.Controllers
       model.Add("tasks", categoryTaskList);
 
       return View(model);
+    }
+
+    [HttpGet("/CategoryDetails/{id}/DueEarliest")]
+    public ActionResult SortByDueEarliest(int id)
+    {
+      Category.SetSortType("date_ascending");
+
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+      Category selectedCategory = Category.Find(id);
+      List<Task> categoryTaskList = selectedCategory.GetTasks();
+
+      model.Add("category", selectedCategory);
+      model.Add("tasks", categoryTaskList);
+
+      return View("CategoryDetails", model);
+    }
+
+    [HttpGet("/CategoryDetails/{id}/DueLatest")]
+    public ActionResult SortByDueLatest(int id)
+    {
+      Category.SetSortType("date_descending");
+
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+      Category selectedCategory = Category.Find(id);
+      List<Task> categoryTaskList = selectedCategory.GetTasks();
+
+      model.Add("category", selectedCategory);
+      model.Add("tasks", categoryTaskList);
+
+      return View("CategoryDetails", model);
+    }
+
+    [HttpGet("/CategoryDetails/{id}/Alphabetical")]
+    public ActionResult SortAlphabetically(int id)
+    {
+      Category.SetSortType("alphabetical_order");
+
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+      Category selectedCategory = Category.Find(id);
+      List<Task> categoryTaskList = selectedCategory.GetTasks();
+
+      model.Add("category", selectedCategory);
+      model.Add("tasks", categoryTaskList);
+
+      return View("CategoryDetails", model);
     }
 
     [HttpGet("/CategoryDetails/{id}/ClearAll")]
@@ -83,6 +127,23 @@ namespace ToDoList.Controllers
       Dictionary<string, object> model = new Dictionary<string, object> ();
 
       Category selectedCategory = Category.Find(id);
+      List<Task> categoryTaskList = selectedCategory.GetTasks();
+
+      model.Add("category", selectedCategory);
+      model.Add("tasks", categoryTaskList);
+
+      return View("CategoryDetails", model);
+    }
+
+    [HttpGet("/CategoryDetails/{catId}/ClearTask/{taskId}")]
+    public ActionResult DeleteTask(int catId, int taskId)
+    {
+
+      Task.DeleteTask(taskId);
+
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+
+      Category selectedCategory = Category.Find(catId);
       List<Task> categoryTaskList = selectedCategory.GetTasks();
 
       model.Add("category", selectedCategory);
