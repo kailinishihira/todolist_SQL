@@ -9,12 +9,14 @@ namespace ToDoList.Models
     private int _id;
     private string _description;
     private int _categoryId;
+    private DateTime _dueDate;
 
-    public Task(string Description, int categoryId, int Id = 0)
+    public Task(string Description, int categoryId, DateTime dueDate, int Id = 0)
     {
       _id = Id;
       _categoryId = categoryId;
       _description = Description;
+      _dueDate = dueDate;
     }
 
     public override bool Equals(System.Object otherTask)
@@ -43,6 +45,11 @@ namespace ToDoList.Models
       return _description;
     }
 
+    public DateTime GetDateTime()
+    {
+      return _dueDate;
+    }
+
     public int GetId()
     {
       return _id;
@@ -59,7 +66,7 @@ namespace ToDoList.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO tasks (description, category_id) VALUES (@description, @category_id);";
+      cmd.CommandText = @"INSERT INTO tasks (description, category_id, due_date) VALUES (@description, @category_id, @dueDate);";
 
       MySqlParameter description = new MySqlParameter();
       description.ParameterName = "@description";
@@ -70,6 +77,11 @@ namespace ToDoList.Models
       categoryId.ParameterName = "@category_id";
       categoryId.Value = this._categoryId;
       cmd.Parameters.Add(categoryId);
+
+      MySqlParameter dueDate = new MySqlParameter();
+      dueDate.ParameterName = "@dueDate";
+      dueDate.Value = this._dueDate;
+      cmd.Parameters.Add(dueDate);
 
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
@@ -91,7 +103,8 @@ namespace ToDoList.Models
         int taskId = rdr.GetInt32(0);
         string taskName = rdr.GetString(1);
         int taskCategoryId = rdr.GetInt32(2);
-        Task newTask = new Task(taskName, taskCategoryId, taskId);
+        DateTime taskDateTime = rdr.GetDateTime(3);
+        Task newTask = new Task(taskName, taskCategoryId, taskDateTime, taskId);
         allTasks.Add(newTask);
       }
       return allTasks;
@@ -113,14 +126,15 @@ namespace ToDoList.Models
       int taskId = 0;
       string taskDescription = "";
       int taskCategoryId = 0;
-
+      DateTime taskDateTime = DateTime.MinValue;
       while (rdr.Read())
       {
         taskId = rdr.GetInt32(0);
         taskDescription = rdr.GetString(1);
         taskCategoryId = rdr.GetInt32(2);
+        taskDateTime = rdr.GetDateTime(3);
       }
-      Task foundTask= new Task(taskDescription, taskCategoryId, taskId);
+      Task foundTask= new Task(taskDescription, taskCategoryId, taskDateTime, taskId);
       return foundTask;
     }
 

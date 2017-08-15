@@ -3,6 +3,11 @@ li{
 }
 body{
   text-align: center;
+  background-color: #f7f4de;
+}
+.jumbotron {
+  background-color: 	#d8c4ff;
+  letter-spacing: 5px;
 }
 .container{
   text-align: center;
@@ -12,7 +17,7 @@ body{
 }
 .list-group-item{
   width: 100%;
-  background-color: #ddffec;
+  background-color: #ffe1a9;
   color: black;
 
 }
@@ -58,6 +63,6 @@ p{
   font-size: 2em;
 padding: 30px;
 }
-.well-list {
-  background-color: #fcefbf;
+.panel-heading {
+  background-color: #d8c4ff;
 }

@@ -46,7 +46,8 @@ namespace ToDoList.Controllers
     public ActionResult CategoryDetailsPost(int id)
     {
       string taskDescription = Request.Form["task"];
-      Task addedTask = new Task(taskDescription, id);
+      DateTime taskDateTime = DateTime.Parse(Request.Form["task-date"]);
+      Task addedTask = new Task(taskDescription, id, taskDateTime);
       addedTask.Save();
 
       Dictionary<string, object> model = new Dictionary<string, object> ();

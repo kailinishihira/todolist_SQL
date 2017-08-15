@@ -117,7 +117,7 @@ namespace ToDoList.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText =@"SELECT * FROM tasks WHERE category_id = @category_id;";
+      cmd.CommandText =@"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY due_date ASC;";
 
       MySqlParameter categoryId = new MySqlParameter();
       categoryId.ParameterName = "@category_Id";
@@ -130,7 +130,8 @@ namespace ToDoList.Models
         int taskId = rdr.GetInt32(0);
         string taskDescription = rdr.GetString(1);
         int taskCategoryId = rdr.GetInt32(2);
-        Task newTask = new Task(taskDescription,taskCategoryId,taskId);
+        DateTime taskDateTime = rdr.GetDateTime(3);
+        Task newTask = new Task(taskDescription,taskCategoryId, taskDateTime, taskId);
         allCategoryTasks.Add(newTask);
       }
       return allCategoryTasks;

@@ -7,7 +7,7 @@
 </div>
 
 <div class="container">
-  <div class="well well-list">
+
 
     @if(Model["tasks"].Count ==0)
     {
@@ -18,11 +18,18 @@
 
         @foreach (var task in Model["tasks"])
         {
-          <p>@task.GetDescription()</p>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Due date: @task.GetDateTime()</h3>
+            </div>
+            <div class="panel-body">
+              <h2>@task.GetDescription()</h2>
+            </div>
+          </div>
         }
 
     }
-  </div>
+
 
   <a href='/CategoryDetails/@Model["category"].GetId()/TaskForm'><button type="button" class="btn btn-success btn-create" name="button">Create a new task</button></a>
 <br>
