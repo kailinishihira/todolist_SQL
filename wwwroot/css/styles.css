@@ -5,6 +5,7 @@ body{
   text-align: center;
   background-color: #f7f4de;
 }
+
 .jumbotron {
   background-color: 	#d8c4ff;
   letter-spacing: 5px;
@@ -70,4 +71,12 @@ padding: 30px;
   padding: 10px;
   padding-bottom: 20px;
   font-size: 1.2em;
+}
+#sort{
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+#sort button {
+  font-size: 1.5em;
 }
