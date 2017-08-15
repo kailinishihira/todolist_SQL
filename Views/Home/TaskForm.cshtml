@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="jumbotron">
+  <h1>Create a new task for @Model.GetName()</h1>
+</div>
+
+<div class="container">
+
+  <form action='/CategoryDetails/@Model.GetId()' method="post" class="form-group">
+    <label for="task">Create a new task</label>
+    <input type="text" name="task" class="form-control">
+
+    <button type="submit" name="button" class="btn btn-success">Make this task</button>
+  </form>
+
+</div>
