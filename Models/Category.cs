@@ -132,9 +132,13 @@ namespace ToDoList.Models
       {
           cmd.CommandText = @"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY due_date DESC;";
       }
-      else
+      else if (_sortType == "alphabetical_order")
       {
         cmd.CommandText = @"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY description ASC;";
+      }
+      else
+      {
+        cmd.CommandText = @"SELECT * FROM tasks WHERE category_id = @category_id ORDER BY description DESC;";
       }
 
 

@@ -119,6 +119,21 @@ namespace ToDoList.Controllers
       return View("CategoryDetails", model);
     }
 
+    [HttpGet("/CategoryDetails/{id}/BackwardAlphabeticalOrder")]
+    public ActionResult SortAlphabeticallyBackwards(int id)
+    {
+      Category.SetSortType("backwards_alphabet");
+
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+      Category selectedCategory = Category.Find(id);
+      List<Task> categoryTaskList = selectedCategory.GetTasks();
+
+      model.Add("category", selectedCategory);
+      model.Add("tasks", categoryTaskList);
+
+      return View("CategoryDetails", model);
+    }
+
     [HttpGet("/CategoryDetails/{id}/ClearAll")]
     public ActionResult ClearTasks(int id)
     {
